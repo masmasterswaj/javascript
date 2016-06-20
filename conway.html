@@ -1,0 +1,518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gra w życie według Conwaya</title>
+	<style>
+		body {
+			font-family:Verdana, Geneva, sans-serif;
+			font-size:14px;
+			color: #111;
+			text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+		}
+		#gl1 {
+			width:700px;
+			height:auto;
+			padding:5px 50px 5px 50px;
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2ab7ec+0,1766b3+100 */
+			background: rgb(42,183,236); /* Old browsers */
+			background: -moz-linear-gradient(top,  rgba(42,183,236,1) 0%, rgba(23,102,179,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(42,183,236,1)), color-stop(100%,rgba(23,102,179,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ab7ec', endColorstr='#1766b3',GradientType=0 ); /* IE6-9 */
+
+
+			margin:0px auto;
+			border-radius:10px 10px 0px 0px;
+			border:solid #aaa;
+			border-width: 1px 1px 0px 1px;
+		}
+		#gl2 {
+			width:700px;
+			height:auto;
+			padding:20px 50px 30px 50px;
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f1f1f1+0,b7b7b7+100 */
+			background: #f1f1f1; /* Old browsers */
+			background: -moz-linear-gradient(top,  #f1f1f1 0%, #b7b7b7 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1f1f1), color-stop(100%,#b7b7b7)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  #f1f1f1 0%,#b7b7b7 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  #f1f1f1 0%,#b7b7b7 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  #f1f1f1 0%,#b7b7b7 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  #f1f1f1 0%,#b7b7b7 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#b7b7b7',GradientType=0 ); /* IE6-9 */
+
+			margin:0px auto;
+			border-radius:0px 0px 0px 0px;
+			border:solid #aaa;
+			border-width: 0px 1px 0px 1px;
+		}
+		#gl3 {
+			width:700px;
+			height:auto;
+			padding:20px 50px 30px 50px;
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#3a3a3a+0,828282+100 */
+			background: rgb(58,58,58); /* Old browsers */
+			background: -moz-linear-gradient(top,  rgba(58,58,58,1) 0%, rgba(130,130,130,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(58,58,58,1)), color-stop(100%,rgba(130,130,130,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  rgba(58,58,58,1) 0%,rgba(130,130,130,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  rgba(58,58,58,1) 0%,rgba(130,130,130,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  rgba(58,58,58,1) 0%,rgba(130,130,130,1) 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  rgba(58,58,58,1) 0%,rgba(130,130,130,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3a3a3a', endColorstr='#828282',GradientType=0 ); /* IE6-9 */
+
+
+
+			margin:0px auto;
+			border-radius:0px 0px 10px 10px;
+			border:1px solid #aaa;
+		}
+		.pole {
+			margin:10px 10px 10px 0px;
+			width:400px;
+			padding:10px;
+			border:solid #aaa;
+			border-width:1px 1px 1px 0px;
+			border-radius:0px 5px 5px 0px;
+		}
+		.poleAdd {
+			margin:10px 10px 10px 0px;
+			width:160px;
+			padding:10px;
+			border:solid #aaa;
+			border-width:1px 1px 1px 0px;
+			border-radius:0px 5px 5px 0px;
+			float:left;
+		}
+		h3 {
+			text-shadow: none;
+			color:#fff;
+		}
+		.divForm {
+			width:40px;
+			height:35px;
+			float:left;
+			margin:10px 0px 10px 10px;
+			border:solid #aaa;
+			border-width:1px 0px 1px 1px;
+			border-radius:5px 0px 0px 5px;
+		}
+		.loginIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 244px 161px;
+		}
+		.hasloIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 213px 35px;
+		}
+		.mysqlIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 118px 66px;
+		}
+		.dbIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 52px 66px;
+		}
+		.nrIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 181px 33px;
+		}
+		.addIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 147px 65px;
+		}
+		.dlIcon {
+			background:url(../pliki/grafika/ikonymc.jpg) scroll 342px 65px;
+		}
+		.upload input[type="file"] {
+			display: none;
+		}
+
+
+		.banner {
+			position:relative;
+
+			width: 225px;
+			height: 30px;
+			background: rgb(42,183,236); /* Old browsers */
+			background: -moz-linear-gradient(top,  rgba(42,183,236,1) 0%, rgba(23,102,179,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(42,183,236,1)), color-stop(100%,rgba(23,102,179,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ab7ec', endColorstr='#1766b3',GradientType=0 ); /* IE6-9 */
+
+			margin:10px;
+			border:solid #aaa;
+			border-width:1px 1px 1px 1px;
+			border-radius:5px 5px 5px 5px;
+			padding:15px 0px 5px 30px;
+			text-shadow:none;
+			color:#fff;
+		}
+		.button {
+
+			width: 150px;
+			height: 83px;
+			background: rgb(42,183,236); /* Old browsers */
+			background: -moz-linear-gradient(top,  rgba(42,183,236,1) 0%, rgba(23,102,179,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(42,183,236,1)), color-stop(100%,rgba(23,102,179,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  rgba(42,183,236,1) 0%,rgba(23,102,179,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ab7ec', endColorstr='#1766b3',GradientType=0 ); /* IE6-9 */
+
+			margin:10px;
+			border:solid #aaa;
+			border-width:1px 1px 1px 1px;
+			border-radius:5px 5px 5px 5px;
+			padding:15px;
+			text-shadow:none;
+			color:#fff;
+			cursor:pointer;
+
+		}
+		#wspolrzedne1 {
+			display:inline-block;
+		}
+		#wspolrzedne2 {
+			float:right;
+			width:190px;
+			margin:18px 10px 10px 10px;
+		}
+		.tabela {
+			width:100%;
+			border:solid #aaa;
+			border-width:1px 1px 0px 0px;
+		}
+		.tabela td {
+			border:solid #aaa;
+			border-width:0px 0px 1px 1px;
+			background:#FFF;
+			cursor:pointer;
+		}
+        #dane {
+            clear:both;
+        }
+        #puste {
+            clear:both;
+            height: 10px;
+        }
+        .dane{
+            width: 88px;
+            height: auto;
+            float: left;
+            padding: 5px;
+            text-align: center;
+            line-height:inherit;
+            border-right-style: dotted;
+            border-right-width: 1px;
+            border-right-color: #666;
+        }
+        .dane1{
+            width: 88px;
+            height: auto;
+            float: left;
+            padding: 5px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            border-right-style: dotted;
+            border-right-width: 1px;
+            border-right-color: #666;
+        }
+	</style>
+</head>
+
+<body>
+	<div id="gl1">
+    	<h3>Zabawa w życie według CONWAY.</h3>
+    </div>
+    <div id="gl2">
+    	<div id="wspolrzedne1">
+            <label>Podaj ilość pól w X</label><br />
+            <div class="divForm nrIcon"></div>
+            <input type="number" id="fx" name="fx" class="pole" required="required" value="50" min="10" max="60" /><br />
+            <label>Podaj ilość pól w Y</label><br />
+            <div class="divForm nrIcon"></div>
+            <input type="number" id="fy" name="fy" class="pole" required="required" value="50" min="10" max="60" /><br />
+            <label>Czas interwałów</label><br />
+            <div class="divForm nrIcon"></div>
+            <input type="number" id="t" name="t" class="pole" required="required" value="50" step="10" min="10"/><br />
+        </div>
+        <div id="wspolrzedne2">
+        	<input type="button" value="Wygeneruj" class="button" id="wywolaj" />
+            <input type="button" value="Twórz życie" class="button" id="zycie" />
+        </div>
+        <div id="dane">
+            <div class="dane">
+                wiel. pop.
+            </div>
+            <div class="dane">
+                il. cykli
+            </div>
+            <div class="dane">
+                il. urodzin
+            </div>
+            <div class="dane">
+                il. zgonów
+            </div>
+            <div class="dane">
+                il. u. cykl
+            </div>
+            <div class="dane">
+                il. z. cykl
+            </div>
+            <div class="dane">
+                oscylacja
+            </div>
+            <div class="dane1" id="wielPopul">
+                0
+            </div>
+            <div class="dane1" id="ilCykli">
+                0
+            </div>
+            <div class="dane1" id="ilUrodzin">
+                0
+            </div>
+            <div class="dane1" id="ilZgonow">
+                0
+            </div>
+            <div class="dane1" id="ilUrodzinCykl">
+                0
+            </div>
+            <div class="dane1" id="ilZgonowCykl">
+                0
+            </div>
+            <div class="dane1" id="oscylacja">
+                NIE
+            </div>
+        </div>
+        <div id="puste">
+        </div>
+        <div id="tabela">
+        </div>
+    </div>
+    <div id="gl3">
+    </div>
+
+    </div>
+
+    <script type="text/javascript">
+		var wywolaj = document.getElementById('wywolaj');
+		var komorki = new Array;
+		var komorkiKopia = new Array;
+		var komorkiCzysta = new Array;
+        var automat = true;
+        var ilUrodzin = 0;
+        var ilZgonow = 0;
+        var ilCykli = 0;
+        var wielPopul = 0;
+        var ilUrodzinCykl = 0;
+        var ilZgonowCykl = 0;
+        var tablicaPopulacji = new Array(0,0,0,0,0,0,0,0,0,0);
+        var indexTabPop = 0;
+        var oscylacja = false;
+
+
+
+		function tworzTabele()
+			{
+
+			var fx = document.getElementById('fy').value;
+			var fy = document.getElementById('fx').value;
+			var tabDiv = document.getElementById('tabela');
+			var tab = document.getElementById('tab');
+			var tabX = Math.round(700 / fx);
+			var tabY = Math.round(700 / fy);
+            var tabela = '<table cellpading="0" cellspacing="0" class="tabela" id="tab" >';
+
+			komorki.splice(0,fx);
+			komorkiKopia.splice(0,fx);
+			komorkiCzysta.splice(0,fx);
+
+			for(var wx = 0; wx<fx; wx++)
+				{
+				komorki[wx] = new Array(fy);
+				komorkiCzysta[wx] = new Array(fy);
+				komorkiKopia[wx] = new Array(fy);
+				tabela += '<tr>';
+				for(var wy = 0; wy<fy; wy++)
+					{
+					komorki[wx][wy] = 0;
+					komorkiCzysta[wx][wy] = 0;
+					komorkiKopia[wx][wy] = 0;
+					tabela += '<td style="width:'+tabX+'px;height:'+tabY+'px" id="td-' + wx + '-' + wy + '" onclick="zaznacz(this)">&nbsp;</td>';
+					}
+				tabela += '</tr>';
+				}
+			tabela += '</table>';
+			tabDiv.innerHTML = tabela;
+			}
+
+		document.getElementById('wywolaj').onclick = function(){
+			tworzTabele();
+
+		}
+
+		document.getElementById('zycie').onclick = function(){
+            if(automat)
+                {
+                var button = document.getElementById('zycie');
+                button.setAttribute('value','Zatrzymaj życie');
+                automat = false;
+                ilUrodzin = 0;
+                ilZgonow = 0;
+                ilCykli = 0;
+                wielPopul = 0;
+                oscylacja = false;
+                zycie();
+                }
+                else
+                {
+                var button = document.getElementById('zycie');
+                button.setAttribute('value','Twórz życie');
+                automat = true;
+                }
+
+		}
+
+        function zycieWyswietl()
+            {
+            var fx = document.getElementById('fy').value;
+            var fy = document.getElementById('fx').value;
+            for(var wx = 1; wx<fx-1; wx++)
+                {
+                for(var wy = 1; wy<fy-1; wy++)
+                    {
+                    var tdStyle = document.getElementById('td-'+wx+'-'+wy);
+                    if(komorki[wx][wy] == 1)
+                        tdStyle.style.backgroundColor = '#f00';
+                    else
+                        tdStyle.style.backgroundColor = '#fff';
+                    }
+                }
+            document.getElementById('wielPopul').innerHTML = wielPopul;
+            document.getElementById('ilCykli').innerHTML = ilCykli;
+            document.getElementById('ilUrodzin').innerHTML = ilUrodzin;
+            document.getElementById('ilZgonow').innerHTML = ilZgonow;
+            document.getElementById('ilUrodzinCykl').innerHTML = ilUrodzinCykl;
+            document.getElementById('ilZgonowCykl').innerHTML = ilZgonowCykl;
+            if(oscylacja)
+                {
+                document.getElementById('oscylacja').innerHTML = 'TAK';
+                document.getElementById('oscylacja').style.color = '#f00';
+                }else{
+                document.getElementById('oscylacja').innerHTML = 'NIE';
+                document.getElementById('oscylacja').style.color = '#000';
+                }
+            }
+
+		function zycie()
+			{
+			var fx = document.getElementById('fy').value;
+			var fy = document.getElementById('fx').value;
+            var t = document.getElementById('t').value;
+            ilUrodzinCykl = 0;
+            ilZgonowCykl = 0;
+
+			for(var wx = 0; wx<fx; wx++) { for(var wy = 0; wy<fy; wy++) { komorkiKopia[wx][wy] = komorki[wx][wy]; }}
+			for(var wx = 0; wx<fx; wx++) { for(var wy = 0; wy<fy; wy++) { komorki[wx][wy] = komorkiCzysta[wx][wy];}}
+
+			for(var wx = 1; wx<fx-1; wx++)
+				{
+				for(var wy = 1; wy<fy-1; wy++)
+					{
+					suma = komorkiKopia[wx-1][wy-1]+
+						   komorkiKopia[wx-1][wy]+
+						   komorkiKopia[wx-1][wy+1]+
+						   komorkiKopia[wx][wy+1]+
+						   komorkiKopia[wx+1][wy+1]+
+						   komorkiKopia[wx+1][wy]+
+						   komorkiKopia[wx+1][wy-1]+
+						   komorkiKopia[wx][wy-1];
+
+					//if(suma == 3 && komorkiKopia[wx][wy] == 0) console.log('xy:' +wx+'-'+wy+' suma:'+suma+' wartosc:'+komorkiKopia[wx][wy]);
+
+					if(suma == 3 && komorkiKopia[wx][wy] == 0)
+                        {
+                        komorki[wx][wy] = 1;
+                        ilUrodzin++;
+                        ilUrodzinCykl++;
+                        }
+
+					if(suma == 3 && komorkiKopia[wx][wy] == 1)
+                        {
+                        komorki[wx][wy] = 1;
+                        }
+					if(suma == 2 && komorkiKopia[wx][wy] == 1)
+                        {
+                        komorki[wx][wy] = 1;
+                        }
+					if(suma > 3 && komorkiKopia[wx][wy] == 1)
+                        {
+                        komorki[wx][wy] = 0;
+                        ilZgonow++;
+                        ilZgonowCykl++;
+                        }
+					if(suma < 2 && komorkiKopia[wx][wy] == 1)
+                        {
+                        komorki[wx][wy] = 0;
+                        ilZgonow++;
+                        ilZgonowCykl++;
+                        }
+                    }
+				}
+            wielPopul = 0;
+            indexTabPop++;
+            if(indexTabPop > 10) indexTabPop = 0;
+            for(var wx = 0; wx<fx; wx++)
+                {
+                for(var wy = 0; wy<fy; wy++)
+                    {
+                    wielPopul += komorki[wx][wy];
+                    }
+                }
+            tablicaPopulacji[indexTabPop] = wielPopul;
+            oscylacja = true;
+            for(var i = 0; i < tablicaPopulacji.length; i++)
+                {
+                if(tablicaPopulacji[i] != wielPopul) oscylacja = false;
+                }
+            ilCykli++;
+			zycieWyswietl();
+            if(!automat && wielPopul != 0 && !oscylacja)
+                {
+
+			    window.setTimeout('zycie()',t);
+                }
+
+			}
+        function zaznacz(e)
+            {
+            if (!e) e = window.event;
+            var targ = e.target || e.srcElement;
+            var nodeN = e.nodeName;
+            var nodeId = e.id;
+			var nodeStyle = e.style.backgroundColor;
+			var nodeNr = e.parentNode;
+			console.log(nodeId);
+			var tdStyle = document.getElementById(nodeId);
+			var x = nodeId.slice(nodeId.indexOf('-')+1,nodeId.lastIndexOf('-'));
+			var y = nodeId.slice(nodeId.lastIndexOf('-')+1);
+			//var x = nodeId.indexOf('-')+1;
+			//var y = nodeId.lastIndexOf('-');
+			console.log('x:'+ x + ' y:' + y + ' wartosc:' + komorki[x][y]);
+			if(komorki[x][y] == 1)
+				{
+				tdStyle.style.backgroundColor = '#fff';
+				komorki[x][y] = 0;
+				}
+			else
+				{
+				tdStyle.style.backgroundColor = '#f00';
+				komorki[x][y] = 1;
+				}
+			}
+
+	</script>
+</body>
+</html>

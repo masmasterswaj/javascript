@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+<title>Drag and Drop</title>
+	<style>
+        body {
+            font-family: verdana, arial, sans-serif;
+            font-size: 12px;
+        }
+        #glowny {
+            width: 700px;
+            height: auto;
+            margin:10px auto;
+        }
+        #dragi {
+            width: 557px;
+            height: 335px;
+            margin:10px auto;
+        }
+        #puzle {
+            width:557px;
+            height: 335px;
+            margin:10px auto;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        #obrazek {
+            width: 500px;
+            height: 300px;
+            background-image: url(images/obrazek.jpg);
+            background-size: 500px 300px;
+            border-radius: 5px;
+        }
+        .drag {
+            width:98px;
+            height:98px;
+            margin:5px;
+            background:#283848;
+            cursor:pointer;
+            float: left;
+            text-align: center;
+            line-height: 100px;
+            color:#fff;
+            font-size: 20px;
+            background-size: 100px 100px;
+            border: 1px solid #808080;
+            border-radius: 5px;
+        }
+        .drop {
+            width:99px;
+            height:99px;
+            margin:0px;
+            background:#e9e9e9;
+            cursor:pointer;
+            float: left;
+            border-width: 1px 1px 1px 1px;
+            border-style: dashed;
+            border-color: #999999;
+            background-size: 100px 100px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+   <script>
+        $(document).ready(function(){
+            $(startDrag);
+            var licz = 0;
+            var koniec = 0;
+            function startDrag(){
+
+                var numbers1 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ];
+                numbers1.sort( function() { return Math.random() - .5 } );
+                console.log(numbers1);
+                for ( var i=0; i<15; i++ ) {
+                    $('<div></div>')
+                        .attr( {id:'card'+numbers1[i],class:'drag'} )
+                        .appendTo( '#dragi' )
+                        .data('numer',numbers1[i])
+                        .css({
+                            backgroundImage:'url(images/'+numbers1[i]+'.jpg)'
+                        })
+                        .draggable({
+                            containment: '#glowny',
+                            cursor: 'move',
+                            snap: '#cel'+i,
+                            revert: true,
+                            start:function(){ licz++; console.log(licz) },
+                            //stop: dragStop
+                        });
+                    }
+                for ( var i=0; i<15; i++ ) {
+                     $('<div></div>')
+                        .attr( {id:'drop'+i,class:'drop'} )
+                        .appendTo( '#puzle' )
+                        .data('numer',i)
+                        .droppable({
+                            drop: celOsiagniety
+                        });
+                }
+            }
+            $(function () {
+                $(".drag").draggable({
+                    stack: ".drag"
+                });
+            });
+            function celOsiagniety (event, ui) {
+                var drag = ui.draggable;
+                var drop = $(this);
+                var dragID = drag.data('numer');
+                var dropID = drop.data('numer');
+                if(dragID == dropID) {
+                console.log('drag:' + (dragID*1) + ' drop:' + (dropID*1));
+                ui.draggable.addClass( 'correct' );
+                ui.draggable.draggable( 'disable' );
+                $(this).droppable( 'disable' );
+                ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+                ui.draggable.draggable( 'option', 'revert', false );
+                koniec++;
+                if(koniec == 15){
+                    $('#glowny').html(
+                        '<div id="obrazek"></div>'
+                        );
+                    }
+                }
+            }
+        });
+    </script>
+    <div id="glowny">
+        <div id="dragi">
+        </div>
+
+        <div id="puzle">
+        </div>
+    </div>
+
+</body>
+</html>
